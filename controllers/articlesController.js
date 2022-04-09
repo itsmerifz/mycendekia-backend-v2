@@ -211,6 +211,7 @@ const searchArticle = async (req, res) => {
         { author: { $regex: keyword, $options: 'i' } },
       ]
     })
+    .sort({ year: -1, })
 
     if(!searchArticle || searchArticle.length === 0){
       throw {
