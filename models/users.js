@@ -11,8 +11,12 @@ const schema = mongoose.Schema(
     },
     password: {
       type: String,
-      select: false,
       minLength: 6
+    },
+    image: {
+      type: String,
+      data: Buffer,
+      default: null
     },
     createdAt: {
       type: Number,

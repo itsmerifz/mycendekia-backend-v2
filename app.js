@@ -3,11 +3,11 @@ import path from "path";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import multer from "multer";
 
 import indexRouter from "./routes/index.js";
 import loginRouter from "./routes/login.js";
 import usersRouter from "./routes/users.js";
+import articlesRouter from "./routes/articles.js";
 
 const env = dotenv.config().parsed;
 const port = env.APP_PORT || 3000;
@@ -20,6 +20,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use("/api", indexRouter);
 app.use("/api/login", loginRouter);
 app.use("/api/users", usersRouter);
+app.use("/api/articles", articlesRouter);
 
 // Connect DB
 mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, {

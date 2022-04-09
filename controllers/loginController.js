@@ -43,6 +43,7 @@ const register = async (req, res) => {
       name: name,
       email: email,
       password: hashPassword,
+      image: null
     });
 
     const user = await newUser.save();
@@ -83,7 +84,7 @@ const login = async (req, res) => {
     }
 
     // Cek email
-    const user = await users.findOne({ email: email }).select("+password");
+    const user = await users.findOne({ email: email });
 
     // Jika email tidak ditemukan
     if (!user) {
@@ -94,7 +95,7 @@ const login = async (req, res) => {
     }
 
     // Cek password
-    const isMatch = bcryptjs.compare(password, user.password);
+    const isMatch = bcryptjs.compareSync(password, user.password);
 
     // Jika password tidak cocok
     if (!isMatch) {
@@ -113,7 +114,7 @@ const login = async (req, res) => {
       },
       env.APP_SECRET,
       {
-        expiresIn: "1h",
+        expiresIn: "1d",
       }
     );
 
@@ -124,7 +125,7 @@ const login = async (req, res) => {
     });
   } catch (err) {
     // Catch error
-    return res.status(500).json({
+    return res.status(err.code).json({
       status: false,
       message: err.message,
     });
