@@ -7,6 +7,7 @@ import multer from "multer";
 
 import indexRouter from "./routes/index.js";
 import loginRouter from "./routes/login.js";
+import usersRouter from "./routes/users.js";
 
 const env = dotenv.config().parsed;
 const port = env.APP_PORT || 3000;
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api", indexRouter);
 app.use("/api/login", loginRouter);
+app.use("/api/users", usersRouter);
 
 // Connect DB
 mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, {

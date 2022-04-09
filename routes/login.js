@@ -1,4 +1,3 @@
-// var express = require('express');
 import express from 'express'
 import { register, login } from '../controllers/loginController.js'
 const router = express.Router();
