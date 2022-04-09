@@ -59,7 +59,7 @@ const register = async (req, res) => {
     // Jika berhasil menyimpan data
     res.status(200).json({
       status: true,
-      message: "Berhasil menyimpan data user",
+      message: "Register berhasil",
       user,
     });
   } catch (err) {
@@ -132,4 +132,19 @@ const login = async (req, res) => {
   }
 }
 
-export { register, login };
+const signOut = async (req, res) => {
+  try {
+    res.status(200).json({
+      status: true,
+      message: "Berhasil Logout",
+    });
+  } catch (err) {
+    // Catch error
+    return res.status(err.code).json({
+      status: false,
+      message: err.message,
+    });
+  }
+}
+
+export { register, login, signOut };
