@@ -30,7 +30,7 @@ const changePassword = async (req, res) => {
 
     // Simpan Data
     const user = await users.findOneAndUpdate(
-      { id: id },
+      { _id: id },
       {
         password: hashPassword,
       }
@@ -151,7 +151,7 @@ const updateUser = async (req, res) => {
 
     if (getUser) {
       const user = await users.findOneAndUpdate(
-        { id: decoded.id },
+        { _id: decoded.id },
         {
           name: name,
           email: email,

@@ -2,7 +2,7 @@ import articles from "../models/articles.js";
 
 const getArticles = async (req, res) => {
   try {
-    const { page= 1, limit = 2 } = req.query;
+    const { page= 1, limit = 5 } = req.query;
 
     const allArticles = await articles
       .find()
@@ -51,7 +51,7 @@ const getOneArticle = async (req, res) => {
     const { id } = req.params;
 
     const getOneArticle = await articles.findOne({
-      id: id,
+      _id: id,
     })
 
 
@@ -146,7 +146,7 @@ const editArticle = async (req, res) => {
     }
 
     const editArticle = await articles.findOneAndUpdate({
-      id: id,
+      _id: id,
     }, updatedArticle)
 
     if(!editArticle){
@@ -176,7 +176,7 @@ const deleteArticle = async (req, res) => {
     const { id } = req.params;
 
     const deleteArticle = await articles.findOneAndDelete({
-      id: id,
+      _id: id,
     })
 
     if(!deleteArticle){
