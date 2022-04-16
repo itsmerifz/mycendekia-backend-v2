@@ -2,12 +2,12 @@ import articles from "../models/articles.js";
 
 const getArticles = async (req, res) => {
   try {
-    const { page= 1, limit = 5 } = req.query;
+    // const { page= 1, limit = 5 } = req.query;
 
     const allArticles = await articles
       .find()
-      .limit(limit * 1)
-      .skip((page - 1) * limit)
+      // .limit(limit * 1)
+      // .skip((page - 1) * limit)
       .sort({ year: -1, })
       .exec();
 
@@ -33,8 +33,8 @@ const getArticles = async (req, res) => {
     res.status(200).json({
       status: true,
       data: allArticles,
-      totalPage: Math.ceil(count / limit),
-      currentPage: page,
+      // totalPage: Math.ceil(count / limit),
+      // currentPage: page,
       totalData: count
     });
   } catch (err) {
@@ -57,7 +57,7 @@ const getOneArticle = async (req, res) => {
 
     if(!getOneArticle || getOneArticle.length === 0){
       throw {
-        code: 404,
+        code: 204,
         message: "Data tidak ditemukan",
       };
     }

@@ -23,9 +23,13 @@ app.use("/api/users", usersRouter);
 app.use("/api/articles", articlesRouter);
 
 // Connect DB
-mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, {
+// mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, {
+//   dbName: env.MONGODB_DBNAME,
+// });
+mongoose.connect(`${env.MONGODB_ATLASURI}${env.MONGODB_UNAME}:${env.MONGODB_PASS}${env.MONGODB_ATLASHOST}/${env.MONGDB_DBNAME}?retryWrites=true&w=majority`,{
   dbName: env.MONGODB_DBNAME,
-});
+})
+
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
