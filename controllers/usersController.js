@@ -110,7 +110,7 @@ const getUserById = async (req, res) => {
     const token = authorization.split(" ")[1];
     const decoded = jsonwebtoken.verify(token, env.APP_SECRET);
 
-    const getUser = await users.findOne({ id: decoded.id });
+    const getUser = await users.findOne({ _id: decoded.id });
 
     // Jika berhasil mengambil data
     res.status(200).json({
@@ -168,7 +168,7 @@ const updateUser = async (req, res) => {
     }
   } catch (err) {
     // Catch error
-    return res.status(err.code).json({
+    return res.status(500).json({
       status: false,
       message: err.message,
     });
