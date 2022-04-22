@@ -18,12 +18,15 @@ const storage = multer.diskStorage({
 const upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    if(file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+    if(file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg" || file.mimetype == "image/webp") {
       cb(null, true);
     }else{
       cb(null, false);
-      return cb(new Error('Hanya menerima file .png, .jpg, dan .jpeg!'));
+      return cb(new Error('Hanya menerima file .png, .jpg, .webp, dan .jpeg!'));
     }
+  },
+  limits: {
+    fileSize: 1024 * 1024 * 5 // 5MB
   }
 });
 

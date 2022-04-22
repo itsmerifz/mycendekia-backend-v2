@@ -131,7 +131,6 @@ const updateUser = async (req, res) => {
   try {
     const { authorization } = req.headers;
     const { name, email } = req.body;
-    const { filename } = req.file;
 
     if (
       !authorization ||
@@ -149,26 +148,43 @@ const updateUser = async (req, res) => {
 
     const getUser = await users.findOne({ id: decoded.id });
 
-    if (getUser) {
-      const user = await users.findOneAndUpdate(
-        { _id: decoded.id },
-        {
-          name: name,
-          email: email,
-          image: req.file === undefined ? '' : filename,
-        }
-      );
-
-      // Jika berhasil mengambil data
-      res.status(200).json({
-        status: true,
-        message: "Berhasil mengubah data user",
-        data: user,
-      });
+    if(getUser){
+      if (req.file?.filename === undefined) {
+        const user = await users.findOneAndUpdate(
+          { _id: decoded.id },
+          {
+            name,
+            email,
+          }
+        );
+  
+        // Jika berhasil mengambil data
+        res.status(200).json({
+          status: true,
+          message: "Berhasil mengubah data user",
+          data: user,
+        });
+      } else {
+        const user = await users.findOneAndUpdate(
+          { _id: decoded.id },
+          {
+            name,
+            email,
+            image: req.file?.filename,
+          }
+        );
+  
+        // Jika berhasil mengambil data
+        res.status(200).json({
+          status: true,
+          message: "Berhasil mengubah data user",
+          data: user,
+        });
+      }  
     }
   } catch (err) {
     // Catch error
-    return res.status(500).json({
+    return res.status(err.code).json({
       status: false,
       message: err.message,
     });

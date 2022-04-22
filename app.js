@@ -30,6 +30,7 @@ app.use("/api/articles", articlesRouter);
 // mongoose.connect(`${env.MONGODB_URI}${env.MONGODB_HOST}:${env.MONGODB_PORT}`, {
 //   dbName: env.MONGODB_DBNAME,
 // });
+mongoose.Promise = global.Promise;
 mongoose.connect(`${env.MONGODB_ATLASURI}${env.MONGODB_UNAME}:${env.MONGODB_PASS}${env.MONGODB_ATLASHOST}/${env.MONGDB_DBNAME}?retryWrites=true&w=majority`,{
   dbName: env.MONGODB_DBNAME,
 }).then((a) => {
@@ -42,19 +43,6 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {})
 
-
-// Handle error
-app.use((req, res, next) => {
-  setImmediate(() => {
-    next(new Error(`Ada kesalahan pada server`));
-  })
-})
-
-app.use((err, req, res, next) => {
-  console.error(err.message);
-  if(!err.statusCode) err.statusCode = 500;
-  res.status(err.statusCode).send(err.message);
-})
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);

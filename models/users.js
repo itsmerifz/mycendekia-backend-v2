@@ -16,7 +16,7 @@ const schema = mongoose.Schema(
     image: {
       type: String,
       data: Buffer,
-      default: null
+      default: 'default.jpg'
     },
     createdAt: {
       type: Number,

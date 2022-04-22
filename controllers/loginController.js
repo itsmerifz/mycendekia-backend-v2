@@ -111,6 +111,7 @@ const login = async (req, res) => {
         id: user._id,
         email: user.email,
         name: user.name,
+        image: user.image,
       },
       env.APP_SECRET,
       {
