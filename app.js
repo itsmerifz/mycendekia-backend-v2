@@ -11,7 +11,7 @@ import usersRouter from "./routes/users.js";
 import articlesRouter from "./routes/articles.js";
 
 const env = dotenv.config().parsed;
-const port = env.APP_PORT || 3000;
+const port = env.APP_PORT || process.env.APP_PORT || 3000;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename)
